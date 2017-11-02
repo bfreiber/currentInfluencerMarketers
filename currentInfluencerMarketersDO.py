@@ -5,8 +5,8 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
 
-################################ [B] DEFINE FUNCTIONS ################################
-################################ [B1] DEFINITIONS: READCSV, WRITECSV ################################
+################################ [A] DEFINE FUNCTIONS ################################
+################################ [A1] DEFINITIONS: READCSV, WRITECSV ################################
 def readCSV(csvFileName):
 	import csv
 	csvdataRows = []
@@ -42,7 +42,7 @@ def writeMarketersToCSV(csvFileName, csvdataRows):
 				print row
 	return
 
-################################ [B2] DEFINITIONS: GET TWITCH LINKS ################################
+################################ [A2] DEFINITIONS: GET TWITCH LINKS ################################
 ################################ MAP: twitchName -> {twitchChannelLink1:finalLink1, twitchChannelLink2: finalLinkN, ..., twitchChannelLinkN:finalLinkN} ################################
 
 def getTwitchLinks(twitchName):
@@ -110,7 +110,7 @@ def getTwitchLinks(twitchName):
 	#chrome_options.add_argument("--mute-audio")
 	#driver = webdriver.Chrome(chromedriver, chrome_options=chrome_options)
 	miniSleep()
-	driver.set_window_size(1150, 880)
+	#driver.set_window_size(1150, 880)
 	miniSleep()
 	driver.get(url)
 	sleep(randint(3,6))#1-5 seconds
@@ -138,7 +138,7 @@ def getTwitchLinks(twitchName):
 	#End function getTwitchLinks
 	return linkDictionary
 
-################################ [B3] DEFINITIONS: SAVE STREAMERS LINKS TO EXCEL FOR MULTIPLE STREAMERS ################################
+################################ [A3] DEFINITIONS: SAVE STREAMERS LINKS TO EXCEL FOR MULTIPLE STREAMERS ################################
 ################################ MAP: csvFile -> [[twitchName, language, followers, {link1:finalLink1, link2:finalLink2, ..., linkN, finalLinkN}], [], ... []] ################################
 def twitchStreamersLinksExcel(csvFileName):
 	import json
@@ -161,7 +161,7 @@ def twitchStreamersLinksExcel(csvFileName):
 	writeStreamersToCSV(csvFileName, csvdataRows)
 	return "Saved " + str(count) + " streamers to csv"
 
-################################ [B4] CREATE/UPDATE RANK ORDER SPONSOR EXCEL ################################
+################################ [A4] CREATE/UPDATE RANK ORDER SPONSOR EXCEL ################################
 ################################ MAP: csvFile -> [linkBase1:count1, linkBase2:count2, ..., linkBaseN:countN] ################################
 def rankOrderSponsors(csvFileName):
 	import re
