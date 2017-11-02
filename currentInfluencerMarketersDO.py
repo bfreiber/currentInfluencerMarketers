@@ -4,6 +4,7 @@ from pyvirtualdisplay import Display
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
+from currentInfluencerMarketersDo import readCSV, writeStreamersToCSV, writeMarketersToCSV, getTwitchLinks, twitchStreamersLinksExcel, rankOrderSponsors
 
 ################################ [A] EXECUTE PROCESSES ################################
 csvFileName = 'streamers.csv'
