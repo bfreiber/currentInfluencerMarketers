@@ -4,12 +4,6 @@ from pyvirtualdisplay import Display
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
-from currentInfluencerMarketersDO import readCSV, writeStreamersToCSV, writeMarketersToCSV, getTwitchLinks, twitchStreamersLinksExcel, rankOrderSponsors
-
-################################ [A] EXECUTE PROCESSES ################################
-csvFileName = 'streamers.csv'
-twitchStreamersLinksExcel(csvFileName)
-#rankOrderSponsors(csvFileName)
 
 ################################ [B] DEFINE FUNCTIONS ################################
 ################################ [B1] DEFINITIONS: READCSV, WRITECSV ################################
@@ -209,3 +203,8 @@ def rankOrderSponsors(csvFileName):
 	csvFileNameSave = 'currentMarketers.csv'
 	writeStreamersToCSV(csvFileNameSave, csvdataRows)
 	return csvdataRows
+
+################################ [B] EXECUTE PROCESSES ################################
+csvFileName = 'streamers.csv'
+twitchStreamersLinksExcel(csvFileName)
+#rankOrderSponsors(csvFileName)
