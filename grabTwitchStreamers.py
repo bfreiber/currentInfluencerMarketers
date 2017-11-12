@@ -96,7 +96,7 @@ def transferStreamerInformation(csvFileNamePRE, csvFileNamePOST):
 			csvdataRowsPOST.append([row[0], row[1], row[2]])
 	# Write out #
 	writeStreamersToCSV(csvFileNamePOST, csvdataRowsPOST)
-	return csvdataRows
+	return csvdataRowsPOST
 
 ################################ [B] RUN PROGRAM ################################
 minimumFollowers = 10000
