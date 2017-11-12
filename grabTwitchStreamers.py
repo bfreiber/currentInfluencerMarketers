@@ -1,4 +1,4 @@
-################################ UPDATE LIST OF TWITCH STREAMERS ################################
+################################ [1/3] UPDATE LIST OF TWITCH STREAMERS ################################
 from bs4 import BeautifulSoup
 import requests
 
@@ -84,7 +84,22 @@ def grabTwitchStreamers(minimumFollowers, csvFileName):
 
 	return csvdataRows, streamers
 
+def transferStreamerInformation(csvFileNamePRE, csvFileNamePOST):
+	# Read in CSV files #
+	csvdataRowsPRE = readCSV(csvFileNamePRE)
+	csvdataRowsPOST = readCSV(csvFileNamePOST)
+	# Add new streamers to csvdataRowsPOST #
+	#twitchNamesinCSVPRE = [row[0] for row in csvdataRowsPRE[1:]]
+	twitchNamesinCSVPOST = [row[0] for row in csvdataRowsPOST[1:]]
+	for row in csvdataRowsPRE[1:]:
+		if (row[0] not in twitchNamesinCSVPOST):
+			csvdataRowsPOST.append([row[0], row[1], row[2]])
+	# Write out #
+	writeStreamersToCSV(csvFileNamePOST, csvdataRowsPOST)
+	return csvdataRows
+
 ################################ [B] RUN PROGRAM ################################
 minimumFollowers = 10000
 csvFileName = 'streamersPRE.csv'
 grabTwitchStreamers(minimumFollowers, csvFileName)
+transferStreamerInformation('streamersPRE.csv', 'streamers.csv')
