@@ -1,9 +1,8 @@
-################################ Update list of twitch streamers ################################
+################################ UPDATE LIST OF TWITCH STREAMERS ################################
 from bs4 import BeautifulSoup
 import requests
 
 ################################ [A] DEFINE FUNCTIONS ################################
-################################ [A1] DEFINITIONS: READCSV, WRITECSV ################################
 def readCSV(csvFileName):
 	import csv
 	csvdataRows = []
@@ -84,3 +83,7 @@ def grabTwitchStreamers(minimumFollowers):
 	writeStreamersToCSV(csvFileName, csvdataRows)
 
 	return csvdataRows, streamers
+
+################################ [B] RUN PROGRAM ################################
+minimumFollowers = 10000
+grabTwitchStreamers(minimumFollowers)
