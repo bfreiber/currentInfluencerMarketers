@@ -26,7 +26,7 @@ def writeStreamersToCSV(csvFileName, csvdataRows):
 				print row
 	return
 
-def grabTwitchStreamers(minimumFollowers):
+def grabTwitchStreamers(minimumFollowers, csvFileName):
 	import requests
 	streamers = []
 	#minimumFollowers = 10000
@@ -49,7 +49,7 @@ def grabTwitchStreamers(minimumFollowers):
 				streamers.append(stream)
 		print len(streamers)
 	# Read in CSV, append new streamers, update? existing streamers #
-	csvFileName = 'streamers.csv'
+	#csvFileName = 'streamers.csv'
 	csvdataRows = readCSV(csvFileName)
 
 	for streamer in streamers:
@@ -79,11 +79,12 @@ def grabTwitchStreamers(minimumFollowers):
 				except:
 					print 'Error'
 	# Write out CSV #
-	csvFileName = 'streamers.csv'
+	#csvFileName = 'streamers.csv'
 	writeStreamersToCSV(csvFileName, csvdataRows)
 
 	return csvdataRows, streamers
 
 ################################ [B] RUN PROGRAM ################################
 minimumFollowers = 10000
-grabTwitchStreamers(minimumFollowers)
+csvFileName = 'streamersPRE.csv'
+grabTwitchStreamers(minimumFollowers, csvFileName)
