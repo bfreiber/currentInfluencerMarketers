@@ -56,6 +56,9 @@ def getTwitchLinks(twitchName):
 	from selenium.webdriver.support import expected_conditions as EC
 	import requests
 	from bs4 import BeautifulSoup
+	# FOR DIGITAL OCEAN: #
+	from pyvirtualdisplay import Display
+	from selenium import webdriver 
 
 	def human_type(element, text):
 		for char in str(text):
@@ -78,9 +81,14 @@ def getTwitchLinks(twitchName):
 				sleep(random.uniform(0, 1))
 				return
 			url = link
-			chromedriver = "/Users/brandonfreiberg/python-projects/chromedriver"
-			os.environ["webdriver.chrome.driver"] = chromedriver
-			driver = webdriver.Chrome(chromedriver)
+			#### LOCAL ####
+			#chromedriver = "/Users/brandonfreiberg/python-projects/chromedriver"
+			#os.environ["webdriver.chrome.driver"] = chromedriver
+			#driver = webdriver.Chrome(chromedriver)
+			#### DIGITAL OCEAN ####
+			display = Display(visible=0, size=(800, 600))
+			display.start()
+			driver = webdriver.Chrome()
 			miniSleep()
 			driver.get(url)
 			sleep(randint(3,6))#1-5 seconds
@@ -91,17 +99,29 @@ def getTwitchLinks(twitchName):
 	def unshorten_url(url):
 		return requests.head(url, allow_redirects=True).url
 
+	#### LOCAL ####
 	url = 'https://twitch.tv/%s/' % (twitchName)
-	chromedriver = "/Users/brandonfreiberg/python-projects/chromedriver"
-	os.environ["webdriver.chrome.driver"] = chromedriver
-	chrome_options = webdriver.ChromeOptions()
-	chrome_options.add_argument("--mute-audio")
-	driver = webdriver.Chrome(chromedriver, chrome_options=chrome_options)
-	miniSleep()
-	driver.set_window_size(1150, 880)
-	miniSleep()
-	driver.get(url)
-	sleep(randint(3,6))#1-5 seconds
+	#chromedriver = "/Users/brandonfreiberg/python-projects/chromedriver"
+	#os.environ["webdriver.chrome.driver"] = chromedriver
+	#chrome_options = webdriver.ChromeOptions()
+	#chrome_options.add_argument("--mute-audio")
+	#driver = webdriver.Chrome(chromedriver, chrome_options=chrome_options)
+	#miniSleep()
+	#driver.set_window_size(1150, 880)
+	#miniSleep()
+	#driver.get(url)
+	#sleep(randint(3,6))#1-5 seconds
+	#### DIGITAL OCEAN ####
+	display = Display(visible=0, size=(800, 600))
+	display.start()
+	driver = webdriver.Chrome()
+	try:
+		driver.get(url)
+		sleep(randint(3,6))
+		print driver.title
+	except:
+		driver.quit()
+		print 'Error getting url'
 
 	## Grab panels ##
 	linkDictionary = {}
@@ -117,6 +137,7 @@ def getTwitchLinks(twitchName):
 		#	actualLink = link['href']
 		#	if (any(ext in actualLink.lower() for ext in linkKeywordsNotToCheck) == False):
 		#		twitchLinks.append(getFinalLink(actualLink))
+		driver.quit()
 		for link in allLinks:
 			actualLink = link['href']
 			try:
@@ -127,6 +148,7 @@ def getTwitchLinks(twitchName):
 				except:
 					print actualLink
 	except:
+		driver.quit()
 		print 'Error regarding grabbing panels'
 
 	#End function getTwitchLinks
