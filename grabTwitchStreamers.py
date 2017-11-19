@@ -1,4 +1,8 @@
 ################################ [1/3] UPDATE LIST OF TWITCH STREAMERS ################################
+# File 1: Create a file of twitchNames/languages/etc. | grabTwitchStreamers.py #
+# File 2: Append link information to streamers | grabLinks.py #
+# File 3: Update list of sponsors, find any "new" items, email  csv file | updateMarketers.py #
+
 from bs4 import BeautifulSoup
 import requests
 
