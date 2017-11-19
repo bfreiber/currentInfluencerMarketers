@@ -97,7 +97,7 @@ def rankOrderSponsors(csvFileName):
 def newSponsors(csvFileName):
 	return
 
-def sendEmail():
+def sendEmail(fileToSend):
 	import smtplib
 	import mimetypes
 	from email.mime.multipart import MIMEMultipart
@@ -110,7 +110,7 @@ def sendEmail():
 
 	emailfrom = "Endorse team"
 	emailto = "brandon@endorse.gg"
-	fileToSend = "streamers.csv"
+	fileToSend = fileToSend
 	username = "endorseggteam@gmail.com"
 	password = "endorseggteam$$"
 
@@ -158,3 +158,5 @@ def sendEmail():
 ################################ [B] RUN PROGRAM ################################
 csvFileName = 'streamers.csv'
 rankOrderSponsors(csvFileName)
+csvFileName2 = 'currentMarketers.csv'
+sendEmail(csvFileName2)
