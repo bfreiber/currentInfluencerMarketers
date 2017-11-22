@@ -1,6 +1,25 @@
 ################################ [2/3] APPEND LINK INFO TO LIST OF TWITCH STREAMERS ################################
 from bs4 import BeautifulSoup
 import requests
+import subprocess
+import os
+import signal
+# TO DO - import os -> os.system('sudo reboot') + password?
+# [1] Find all processes: ps aux --sort -rss
+# [2] Kill all that have 'chrome' in the 'command' (at least 4 by my count) - https://stackoverflow.com/questions/14209064/python-sort-string-array-with-subtring
+# [3] Does it work again?
+
+################################ UNDER WORK ################################
+"""import subprocess
+ps = subprocess.Popen(['ps', 'aux', '--sort', '-rss'], stdout=subprocess.PIPE).communicate()[0]
+processes = ps.split('\n')
+processesSplit = [processesRow.split() for processesRow in processes[1:]]
+
+import os
+import signal
+for process in processesSplit:
+	if (('-nolisten' in process) and ('-screen' in process)):
+		os.kill(int(process[1]), signal.SIGTERM)"""
 
 ################################ [A] DEFINE FUNCTIONS ################################
 
@@ -99,6 +118,14 @@ def getTwitchLinks(twitchName):
 	def unshorten_url(url):
 		return requests.head(url, allow_redirects=True).url
 
+	## Kill all open chrome browser instances ##
+	ps = subprocess.Popen(['ps', 'aux', '--sort', '-rss'], stdout=subprocess.PIPE).communicate()[0]
+	processes = ps.split('\n')
+	processesSplit = [processesRow.split() for processesRow in processes[1:]]
+	for process in processesSplit:
+		if (('-nolisten' in process) and ('-screen' in process)):
+			os.kill(int(process[1]), signal.SIGTERM)
+
 	#### LOCAL ####
 	url = 'https://twitch.tv/%s/' % (twitchName)
 	#chromedriver = "/Users/brandonfreiberg/python-projects/chromedriver"
@@ -147,6 +174,7 @@ def getTwitchLinks(twitchName):
 					linkDictionary[actualLink] = getFinalLink(actualLink)
 				except:
 					print actualLink
+
 	except:
 		driver.quit()
 		print 'Error regarding grabbing panels'
