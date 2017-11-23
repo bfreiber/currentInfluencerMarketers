@@ -87,10 +87,9 @@ def rankOrderSponsors(csvFileName):
 	for row in currentMarketers:
 		# [3] Add space until row = maximumLengthofRow #
 		if type(row) == str:
-			print row, type(row)
-		#while (len(row) < maximumLengthofRow):
-			#count = 0
-			#row.append("")
+			row.delete()
+		while (len(row) < maximumLengthofRow):
+			row.append("")
 	# [4] Add new elements to list #
 	for i in range(len(orderedLinkBaseCountList)):
 		currentMarketers[i] = currentMarketers[i] + orderedLinkBaseCountList[i]
@@ -120,8 +119,8 @@ def sendEmail(fileToSend):
 	msg = MIMEMultipart()
 	msg["From"] = emailfrom
 	msg["To"] = emailto
-	msg["Subject"] = "Weekly Endorse influencer marketers update"
-	msg.preamble = "See who's new in Twitch influencer marketing and who no longer is doing it"
+	msg["Subject"] = "ENDORSE | Weekly Twitch influencer marketer update"
+	msg.preamble = "See who's new in Twitch influencer marketing, and who's left the medium"
 
 	ctype, encoding = mimetypes.guess_type(fileToSend)
 	if ctype is None or encoding is not None:
@@ -162,4 +161,4 @@ def sendEmail(fileToSend):
 csvFileName = 'streamers.csv'
 rankOrderSponsors(csvFileName)
 csvFileName2 = 'currentMarketers.csv'
-#sendEmail(csvFileName2)
+sendEmail(csvFileName2)
