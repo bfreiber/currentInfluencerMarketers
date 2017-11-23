@@ -87,6 +87,7 @@ def rankOrderSponsors(csvFileName):
 	for row in currentMarketers:
 		# [3] Add space until row = maximumLengthofRow #
 		while (len(row) < maximumLengthofRow):
+			print row
 			row.append("")
 	# [4] Add new elements to list #
 	for i in range(len(orderedLinkBaseCountList)):
