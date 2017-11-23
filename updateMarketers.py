@@ -78,6 +78,7 @@ def rankOrderSponsors(csvFileName):
 	# [0] Add date to orderedLinkBaseCountList #
 	now = datetime.datetime.now()
 	nowString = now.strftime("%Y-%m-%d %H:%M")
+	print nowString
 	orderedLinkBaseCountList = [[nowString, ""]] + orderedLinkBaseCountList
 	# [1] Append rows until same length as necessary for new column addition #
 	while (len(currentMarketers) < len(orderedLinkBaseCountList)):
