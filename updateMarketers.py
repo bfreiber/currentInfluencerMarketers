@@ -86,13 +86,14 @@ def rankOrderSponsors(csvFileName):
 	maximumLengthofRow = max([len(row) for row in currentMarketers])
 	for row in currentMarketers:
 		# [3] Add space until row = maximumLengthofRow #
-		while (len(row) < maximumLengthofRow):
+		if type(row) == str:
 			print row, type(row)
+		while (len(row) < maximumLengthofRow):
 			row.append("")
 	# [4] Add new elements to list #
 	for i in range(len(orderedLinkBaseCountList)):
 		currentMarketers[i] = currentMarketers[i] + orderedLinkBaseCountList[i]
-	writeStreamersToCSV(csvFileNameSave, currentMarketers)
+	#writeStreamersToCSV(csvFileNameSave, currentMarketers)
 	return currentMarketers
 
 def newSponsors(csvFileName):
@@ -160,4 +161,4 @@ def sendEmail(fileToSend):
 csvFileName = 'streamers.csv'
 rankOrderSponsors(csvFileName)
 csvFileName2 = 'currentMarketers.csv'
-sendEmail(csvFileName2)
+#sendEmail(csvFileName2)
