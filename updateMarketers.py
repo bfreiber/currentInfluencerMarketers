@@ -95,7 +95,50 @@ def rankOrderSponsors(csvFileName):
 	return currentMarketers
 
 def newSponsors(csvFileName):
-	return
+	csvdataRows = readCSV(csvFileName)
+	maximumLengthofRow = max([len(row) for row in csvdataRows])
+	if maximumLengthofRow >= 4:
+		tminus1 = [[row[len(row)-4],row[len(row)-3]] for row in csvdataRows]
+		t = [[row[len(row)-2],row[len(row)-1]] for row in csvdataRows]
+		tminus1Marketers = [tRow[0] for tRow in tminus1]
+		tMarketers = [tRow[0] for tRow in t]
+		allMarketers = list(set().union(tminus1Marketers, tMarketers))
+		#### Create marketers delta ####
+		marketersDelta = {}
+		for marketer in allMarketers:
+			#### t marketers ####
+			if marketer in tMarketers:
+				try:
+					marketersDelta[marketer] = int(t[tMarketers.index(marketer)][1])
+				except:
+					marketersDelta[marketer] = 0
+			else:
+				marketersDelta[marketer] = 0
+			#### tminus1 marketers ####
+			if marketer in tminus1Marketers:
+				try:
+					marketersDelta[marketer] = int(marketersDelta[marketer]) - int(tminus1[tminus1Marketers.index(marketer)][1])
+				except:
+					marketersDelta[marketer] = int(marketersDelta[marketer]) - 0
+			else:
+				marketersDelta[marketer] = int(marketersDelta[marketer]) - 0
+		#### Create list new marketers (delta >= 3) ####
+		newMarketers = [marketer for marketer in marketersDelta.keys() if marketersDelta[marketer] >= 3]
+		#### Create list of marketers that have left (delta <=3) ####
+		oldMarketers = [marketer for marketer in marketersDelta.keys() if marketersDelta[marketer] <= -3]
+		return newMarketers, oldMarketers
+	else:
+		return [], []
+
+def defineText(newMarketers, oldMarketers):
+	text = "New Links:\n"
+	for marketer in newMarketers:
+		text += str(marketer) + "\n"
+	text += '\n \n'
+	text += "Old Links:\n"
+	for marketer in oldMarketers:
+		text += str(marketer) + "\n"
+	return text
 
 def sendEmail(fileToSend):
 	import smtplib
@@ -119,6 +162,8 @@ def sendEmail(fileToSend):
 	msg["To"] = emailto
 	msg["Subject"] = "ENDORSE | Weekly Twitch influencer marketer update"
 	msg.preamble = "See who's new in Twitch influencer marketing, and who's left the medium"
+	newMarketers, oldMarketers = newSponsors('currentMarketers.csv')
+	text = defineText(newMarketers, oldMarketers)
 
 	ctype, encoding = mimetypes.guess_type(fileToSend)
 	if ctype is None or encoding is not None:
@@ -147,6 +192,7 @@ def sendEmail(fileToSend):
 	    encoders.encode_base64(attachment)
 	attachment.add_header("Content-Disposition", "attachment", filename=fileToSend)
 	msg.attach(attachment)
+	msg.attach(MIMEText(text))
 
 	server = smtplib.SMTP("smtp.gmail.com:587")
 	server.starttls()
