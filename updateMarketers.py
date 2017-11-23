@@ -81,10 +81,7 @@ def rankOrderSponsors(csvFileName):
 	orderedLinkBaseCountList = [[nowString, ""]] + orderedLinkBaseCountList
 	# [1] Append rows until same length as necessary for new column addition #
 	while (len(currentMarketers) < len(orderedLinkBaseCountList)):
-		currentMarketers.append("")
-	# [1.5] Remove blank rows #
-	while ('' in currentMarketers):
-		currentMarketers.remove('')
+		currentMarketers.append([])
 	# [2] Find new position in row to start at #
 	maximumLengthofRow = max([len(row) for row in currentMarketers])
 	for row in currentMarketers:
