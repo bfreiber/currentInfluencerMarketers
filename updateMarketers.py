@@ -89,7 +89,8 @@ def rankOrderSponsors(csvFileName):
 		if type(row) == str:
 			print row, type(row)
 		while (len(row) < maximumLengthofRow):
-			row.append("")
+			count = 0
+			#row.append("")
 	# [4] Add new elements to list #
 	for i in range(len(orderedLinkBaseCountList)):
 		currentMarketers[i] = currentMarketers[i] + orderedLinkBaseCountList[i]
