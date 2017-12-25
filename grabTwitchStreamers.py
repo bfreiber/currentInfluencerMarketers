@@ -104,6 +104,6 @@ def transferStreamerInformation(csvFileNamePRE, csvFileNamePOST):
 
 ################################ [B] RUN PROGRAM ################################
 minimumFollowers = 10000
-csvFileName = 'streamersPRE.csv'
+csvFileName = 'currentInfluencerMarketers/streamersPRE.csv'
 grabTwitchStreamers(minimumFollowers, csvFileName)
-transferStreamerInformation('streamersPRE.csv', 'streamers.csv')
+transferStreamerInformation('currentInfluencerMarketers/streamersPRE.csv', 'currentInfluencerMarketers/streamers.csv')
