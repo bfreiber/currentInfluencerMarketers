@@ -216,5 +216,5 @@ def twitchStreamersLinksExcel(csvFileName):
 
 ################################ [B] RUN PROGRAM ################################
 
-csvFileName = 'streamers.csv'
+csvFileName = 'currentInfluencerMarketers/streamers.csv'
 twitchStreamersLinksExcel(csvFileName)
