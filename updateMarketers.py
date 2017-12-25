@@ -69,7 +69,7 @@ def rankOrderSponsors(csvFileName):
 	orderedLinkBaseCountList = [[orderedLinkBaseCount[i][0],orderedLinkBaseCount[i][1]] for i in range(len(orderedLinkBaseCount))]
 	# (D) Save to 'currentMarketers.csv'
 	# Read in marketer list #
-	csvFileNameSave = 'currentMarketers.csv' 
+	csvFileNameSave = 'currentInfluencerMarketers/currentMarketers.csv' 
 	currentMarketers = readCSV(csvFileNameSave)
 	# Desired output | ['twitter', 3, 'youtube', 4], []
 	# Input | currentMarketers[1] = ['twitter', 3]
@@ -162,7 +162,7 @@ def sendEmail(fileToSend):
 	msg["To"] = emailto
 	msg["Subject"] = "ENDORSE | Weekly Twitch influencer marketer update"
 	msg.preamble = "See who's new in Twitch influencer marketing, and who's left the medium"
-	newMarketers, oldMarketers = newSponsors('currentMarketers.csv')
+	newMarketers, oldMarketers = newSponsors('currentInfluencerMarketers/currentMarketers.csv')
 	text = defineText(newMarketers, oldMarketers)
 
 	ctype, encoding = mimetypes.guess_type(fileToSend)
@@ -202,7 +202,7 @@ def sendEmail(fileToSend):
 	return
 
 ################################ [B] RUN PROGRAM ################################
-csvFileName = 'streamers.csv'
+csvFileName = 'currentInfluencerMarketers/streamers.csv'
 rankOrderSponsors(csvFileName)
-csvFileName2 = 'currentMarketers.csv'
+csvFileName2 = 'currentInfluencerMarketers/currentMarketers.csv'
 sendEmail(csvFileName2)
